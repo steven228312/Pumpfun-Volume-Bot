@@ -1,6 +1,8 @@
 import { Logger } from 'pino';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
 dotenv.config();
 
@@ -12,7 +14,6 @@ export const retrieveEnvVariable = (variableName: string, logger: Logger) => {
   }
   return variable;
 };
-
 
 // Define the type for the JSON file content
 export interface Data {
@@ -42,7 +43,6 @@ export const randVal = (min: number, max: number, count: number, total: number, 
   // if (count % 2) arr.pop()
   return arr;
 }
-
 
 export const saveDataToFile = (newData: Data[], filePath: string = "data.json") => {
   try {
@@ -79,14 +79,12 @@ export const sleep = async (ms: number) => {
   await new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-
 export function deleteConsoleLines(numLines: number) {
   for (let i = 0; i < numLines; i++) {
     process.stdout.moveCursor(0, -1); // Move cursor up one line
     process.stdout.clearLine(-1);        // Clear the line
   }
 }
-
 
 // Function to read JSON file
 export function readJson(filename: string = "data.json"): Data[] {
@@ -119,3 +117,22 @@ export function editJson(newData: Partial<Data>, filename: string = "data.json")
   }
 }
 
+export async function formatDate() {
+    const options: any = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'UTC',
+        timeZoneName: 'short'
+    };
+
+    const now = new Date();
+    return now.toLocaleString('en-US', options);
+}
+
+export function convertHttpToWebSocket(httpUrl: string): string {
+    return httpUrl.replace(/^https?:\/\//, 'wss://');
+}
