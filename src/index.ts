@@ -35,11 +35,10 @@ import {
     TOKEN_MINT,
     JITO_MODE,
 } from './config'
-// import { execute } from './executor/legacy'
-// import { executeJitoTx } from './executor/jito'
-// import { getSellTxWithJupiter } from './utils/swapOnlyAmm'
-// import { Data, readJson, saveDataToFile, sleep } from './utils'
-// import { formatDate } from './utils/commonFunc'
+import { execute } from './executor/legacy'
+import { executeJitoTx } from './executor/jito'
+import { getSellTxWithJupiter } from './utils/swapOnlyAmm'
+import { Data, readJson, saveDataToFile, sleep, formatDate } from './utils'
 
 const computeUnit = 100000;
 
